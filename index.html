@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dale click</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #0d0d11;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+      user-select: none;
+    }
+
+    /* ESTILO BOTÓN LIMPIO */
+    .btn-click {
+      background-color: #ffffff;
+      color: #0d0d11;
+      font-size: 1.5rem;
+      font-weight: 700;
+      padding: 16px 38px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-click:hover {
+      transform: scale(1.05);
+      background-color: #f0f0f0;
+      box-shadow: 0 6px 25px rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-click:active {
+      transform: scale(0.96);
+    }
+
+    /* PASO 1: PANTALLA TOTALMENTE LIMPIA */
+    #paso-1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+    }
+
+    /* PASO 2: EL MONO SACANDO EL DEDO */
+    #paso-2 {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 25px;
+      animation: aparecerPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .contenedor-mono {
+      max-height: 58vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contenedor-mono img {
+      max-height: 55vh;
+      max-width: 90vw;
+      border-radius: 16px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+      object-fit: contain;
+    }
+
+    /* PASO 3: DUO MIKE Y EL MONO */
+    #paso-3 {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+      max-width: 950px;
+      animation: aparecerSuave 0.4s ease-out;
+    }
+
+    .galeria-duo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 25px;
+      width: 100%;
+      max-height: 65vh;
+    }
+
+    .caja-imagen {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-height: 60vh;
+    }
+
+    .caja-imagen img {
+      max-height: 58vh;
+      max-width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+      object-fit: contain;
+    }
+
+    .anim-ritmo-mono {
+      animation: ritmoMono 0.7s infinite alternate ease-in-out;
+      transform-origin: bottom center;
+    }
+
+    .anim-ritmo-mike {
+      animation: ritmoMike 1.2s infinite alternate ease-in-out;
+      transform-origin: bottom center;
+    }
+
+    @keyframes ritmoMono {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.05) translateY(-8px); }
+    }
+
+    @keyframes ritmoMike {
+      0% { transform: scale(1) rotate(-1deg); }
+      100% { transform: scale(1.04) rotate(1.5deg) translateY(-6px); }
+    }
+
+    @keyframes aparecerPop {
+      0% {
+        opacity: 0;
+        transform: scale(0.6);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes aparecerSuave {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .galeria-duo {
+        flex-direction: row;
+        gap: 12px;
+      }
+      .caja-imagen img {
+        max-height: 48vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- AUDIO DE MIKE -->
+  <audio id="audio-mike" loop preload="auto">
+    <source src="mike.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- PASO 1: PANTALLA LIMPIA CON EL BOTÓN -->
+  <div id="paso-1">
+    <button id="btn-1" class="btn-click">Dale click</button>
+  </div>
+
+  <!-- PASO 2: EL MONO SACANDO EL DEDO + OTRO DALE CLICK -->
+  <div id="paso-2">
+    <div class="contenedor-mono">
+      <img src="mono-que-saca-el-dedo.png" alt="Mono que saca el dedo">
+    </div>
+    <button id="btn-2" class="btn-click">Dale click</button>
+  </div>
+
+  <!-- PASO 3: MIKE CANTANDO + EL MONO + CANCIÓN MIKE.MP3 -->
+  <div id="paso-3">
+    <div class="galeria-duo">
+      <div class="caja-imagen">
+        <img src="mono-que-saca-el-dedo.png" alt="Mono que saca el dedo" class="anim-ritmo-mono">
+      </div>
+      <div class="caja-imagen">
+        <img src="images.jpg" alt="Mike Wazowski cantando" class="anim-ritmo-mike">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const paso1 = document.getElementById('paso-1');
+    const paso2 = document.getElementById('paso-2');
+    const paso3 = document.getElementById('paso-3');
+    const btn1 = document.getElementById('btn-1');
+    const btn2 = document.getElementById('btn-2');
+    const audioMike = document.getElementById('audio-mike');
+
+    // SONIDO DE IMPACTO CÓMICO PARA CUANDO SALE EL MONO
+    function reproducirSonidoMono() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Golpe seco "PLOP / BOING"
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(320, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(70, audioCtx.currentTime + 0.3);
+
+        gain.gain.setValueAtTime(0.7, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(audioCtx.currentTime);
+        osc.stop(audioCtx.currentTime + 0.3);
+
+        // Armónico de golpe
+        const osc2 = audioCtx.createOscillator();
+        const gain2 = audioCtx.createGain();
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(140, audioCtx.currentTime);
+        osc2.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.25);
+        gain2.gain.setValueAtTime(0.5, audioCtx.currentTime);
+        gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+        osc2.connect(gain2);
+        gain2.connect(audioCtx.destination);
+        osc2.start(audioCtx.currentTime);
+        osc2.stop(audioCtx.currentTime + 0.25);
+      } catch (e) {
+        console.log('AudioContext no soportado o bloqueado:', e);
+      }
+    }
+
+    // 1. PRIMER CLICK: Sale el sonido y el mono
+    btn1.addEventListener('click', () => {
+      paso1.style.display = 'none';
+      paso2.style.display = 'flex';
+      reproducirSonidoMono();
+    });
+
+    // 2. SEGUNDO CLICK: Sale Mike y suena mike.mp3
+    btn2.addEventListener('click', () => {
+      paso2.style.display = 'none';
+      paso3.style.display = 'flex';
+
+      audioMike.volume = 1.0;
+      audioMike.play().catch(e => {
+        console.log('Error al reproducir audio de Mike:', e);
+      });
+    });
+  </script>
+</body>
+</html>
